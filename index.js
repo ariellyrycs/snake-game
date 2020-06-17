@@ -1,6 +1,7 @@
 
 (() => {
     'use strict';
+
     let longX = 100,
         longY = 100,
         snake = new DoublyLinkedList(),
@@ -24,7 +25,10 @@
     let generateCherry = () => {
         let s;
         do {
-            s = [Math.floor(Math.random() * longX), Math.floor(Math.random() * longY)];
+            s = [
+                Math.floor(Math.random() * longX),
+                Math.floor(Math.random() * longY)
+            ];
         } while(snakeAccess[s[0] + ',' + s[1]]);
         return s;
     };
@@ -54,17 +58,12 @@
         charryChange = setTimeout(() => currentCherryPosition = generateCherry(), 40000);
     };
 
-
     let moveDirection = () => {
         if(!snake.head) return;
         let [x, y] = snake.head.val;
         snakeAccess[x + ',' + y] = false;
-        x += currentDirections[0];
-        y += currentDirections[1];
-        x += longX;
-        y += longY;
-        x %= longX;
-        y %= longY;
+        x = (x + currentDirections[0] + longX) % longX;
+        y = (y + currentDirections[1] + longY) % longY;
         if(currentCherryPosition[0] === x && currentCherryPosition[1] === y) {
             recreateCherry();
         } else {
@@ -88,15 +87,15 @@
     recreateCherry();
     moveDirection();
     playing = setInterval(moveDirection, 100);
-    
 
-    document.addEventListener('keydown', (e) => {
-        if(typeof directions[e.key] !== 'undefined') {
-            if(currentDirections[0] + directions[e.key][0] === 0 &&
-                currentDirections[1] + directions[e.key][1] === 0) {
+    document.addEventListener('keydown', e => {
+        let direction = directions[e.key]
+        if(typeof direction !== 'undefined') {
+            if(currentDirections[0] + direction[0] === 0 &&
+                currentDirections[1] + direction[1] === 0) {
                 return;
             }
-            currentDirections = directions[e.key];
+            currentDirections = direction;
         }
     });
 })();
