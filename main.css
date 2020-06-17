@@ -1,0 +1,41 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    background-color: #eee;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.board {
+    width: 800px;
+    height: 800px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 1px;
+}
+
+.board div {
+    background-color: white;
+    height: 7px;
+    width: 7px;
+    border-style: solid;
+    border-color: black;
+    border-width: 0 1px 1px 0;
+    float: left;
+}
+.board .snake-head {
+    background-color: green;
+}
+.board .tail {
+    background-color: greenyellow;
+}
+
+.board .cherry {
+    background-color: red;
+}
